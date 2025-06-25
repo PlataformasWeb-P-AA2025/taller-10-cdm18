@@ -1,0 +1,39 @@
+{% extends "ordenamiento/base.html" %}
+{% block title %}Parroquias{% endblock %}
+{% block content %}
+<h1 class="mb-3">Parroquias</h1>
+
+<a href="{% url 'nueva_parroquia' %}" class="btn btn-success mb-3">➕ Nueva parroquia</a>
+
+<div class="accordion" id="parroquias">
+    {% for parroquia in parroquias %}
+    <div class="accordion-item shadow-sm">
+        <h2 class="accordion-header" id="h{{ forloop.counter }}">
+            <button class="accordion-button collapsed" data-bs-toggle="collapse"
+                    data-bs-target="#p{{ forloop.counter }}">
+                {{ parroquia.nombre }} ({{ parroquia.get_ubicacion_display }}, {{ parroquia.tipo }})
+            </button>
+        </h2>
+        <div id="p{{ forloop.counter }}" class="accordion-collapse collapse"
+             data-bs-parent="#parroquias">
+            <div class="accordion-body">
+                <ul class="list-group">
+                    {% for barrio in parroquia.barrios.all %}
+                    <li class="list-group-item d-flex justify-content-between">
+                        {{ barrio.nombre }}
+                        <span class="badge bg-primary rounded-pill">
+                            {{ barrio.numero_viviendas }} viviendas
+                        </span>
+                    </li>
+                    {% empty %}
+                    <li class="list-group-item">Sin barrios registrados</li>
+                    {% endfor %}
+                </ul>
+                <a href="{% url 'nuevo_barrio' %}?parroquia={{ parroquia.id }}"
+                   class="btn btn-outline-primary btn-sm mt-2">➕ Añadir barrio</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

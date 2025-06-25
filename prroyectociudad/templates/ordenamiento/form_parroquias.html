@@ -1,0 +1,11 @@
+{% extends "ordenamiento/base.html" %}
+{% block title %}Nueva parroquia{% endblock %}
+{% block content %}
+<h1>Nueva parroquia</h1>
+<form method="post" class="card p-4 shadow-sm">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn btn-primary">Guardar</button>
+    <a href="{% url 'lista_parroquias' %}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}

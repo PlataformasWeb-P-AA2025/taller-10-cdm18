@@ -1,0 +1,15 @@
+{% extends "ordenamiento/base.html" %}
+{% block title %}Nuevo barrio{% endblock %}
+
+{% block content %}
+<h1 class="mb-3">Nuevo barrio</h1>
+
+<form method="post" class="card shadow-sm p-4 needs-validation" novalidate>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div class="d-flex gap-2 mt-3">
+        <button class="btn btn-primary">Guardar</button>
+        <a href="{% url 'lista_barrios' %}" class="btn btn-secondary">Cancelar</a>
+    </div>
+</form>
+{% endblock %}
